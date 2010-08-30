@@ -5,18 +5,24 @@
 
   %head
     %title Logginator
+    %link{ :href => '/results.css', :rel => 'stylesheet', :type => 'text/css' }
 
   %body
     #summaries
-      %h2 Summaries
-      - @log_entries.each do |entry|
-        .summary
-          %a{ :href => "/page/#{@page}/entry/#{entry['_id']}" }
-            %span.time= entry['request_time'].strftime '%m-%d %H:%M:%S'
-            %span.action= "#{entry['controller']}##{entry['action']}"
       .pagination
         %a{ :href => "/page/#{[1, @page - 1].max}" } previous
-        |
+
+      %table{ :cellspacing => 0 }
+        - @log_entries.each do |entry|
+          %tr
+            %td.time
+              %a{ :href => "/page/#{@page}/entry/#{entry['_id']}" }
+                = entry['request_time'].strftime '%m-%d %H:%M:%S'
+            %td.controller= entry['controller']
+            %td.separator #
+            %td.action= entry['action']
+
+      .pagination
         %a{ :href => "/page/#{@page + 1}" } next
 
     #detail
