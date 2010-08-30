@@ -1,0 +1,24 @@
+
+!!!5
+
+%html{ :xmlns => "http://www.w3.org/1999/xhtml" }
+
+  %head
+    %title Logginator
+
+  %body
+    #summaries
+      %h2 Summaries
+      - @log_entries.each do |entry|
+        .summary
+          %span.time= entry['request_time'].strftime '%m-%d %H:%M:%S'
+          %span.action= "#{entry['controller']}##{entry['action']}"
+      .pagination
+        %a{ :href => "/page/#{[1, @page - 1].max}" } previous
+        |
+        %a{ :href => "/page/#{@page + 1}" } next
+
+    #detail
+      %h1 
+        %span.time= @log_entry['request_time'].strftime '%Y-%m-%d %H:%M:%S'
+        %span.action= "#{@log_entry['controller']}##{@log_entry['action']}"
