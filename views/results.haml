@@ -11,8 +11,9 @@
       %h2 Summaries
       - @log_entries.each do |entry|
         .summary
-          %span.time= entry['request_time'].strftime '%m-%d %H:%M:%S'
-          %span.action= "#{entry['controller']}##{entry['action']}"
+          %a{ :href => "/page/#{@page}/entry/#{entry['_id']}" }
+            %span.time= entry['request_time'].strftime '%m-%d %H:%M:%S'
+            %span.action= "#{entry['controller']}##{entry['action']}"
       .pagination
         %a{ :href => "/page/#{[1, @page - 1].max}" } previous
         |

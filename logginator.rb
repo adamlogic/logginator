@@ -17,3 +17,10 @@ get '/page/:page' do |page|
   @log_entry   = LogEntry.find_one
   haml :results
 end
+
+get '/page/:page/entry/:id' do |page, id|
+  @page = page.to_i
+  @log_entries = LogEntry.page(@page)
+  @log_entry   = LogEntry.find_one(:_id => BSON.ObjectId(id))
+  haml :results
+end

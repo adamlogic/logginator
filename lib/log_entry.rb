@@ -20,8 +20,8 @@ class LogEntry
     COLLECTION.find({}, options)
   end
 
-  def self.find_one
-    COLLECTION.find_one({})
+  def self.find_one(params = {})
+    COLLECTION.find_one(params)
   end
 
   private
