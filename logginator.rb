@@ -3,6 +3,7 @@ require 'haml'
 require 'uri'
 require 'mongo'
 require 'lib/log_entry'
+require 'lib/helpers'
 
 get '/' do
   @page = 1

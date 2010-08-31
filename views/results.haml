@@ -29,3 +29,7 @@
       %h1 
         %span.time= @log_entry['request_time'].strftime '%Y-%m-%d %H:%M:%S'
         %span.action= "#{@log_entry['controller']}##{@log_entry['action']}"
+
+      .params
+        %h2 params
+        = param_table @log_entry['params']
