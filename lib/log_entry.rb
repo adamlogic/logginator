@@ -20,8 +20,12 @@ class LogEntry
     COLLECTION.find({}, options)
   end
 
-  def self.find_one(params = {})
-    COLLECTION.find_one(params)
+  def self.find_one(id, params = {})
+    COLLECTION.find_one(id, params)
+  end
+
+  def self.first_on_page(page)
+    COLLECTION.find_one(nil, page_opts(page))
   end
 
   private
