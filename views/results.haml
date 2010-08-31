@@ -14,7 +14,7 @@
 
       %table{ :cellspacing => 0 }
         - @log_entries.each do |entry|
-          %tr
+          %tr{ :class => "#{'selected' if entry['_id'] == @log_entry['_id']}" }
             %td.time
               %a{ :href => "/page/#{@page}/entry/#{entry['_id']}" }
                 = entry['request_time'].strftime '%m-%d %H:%M:%S'
