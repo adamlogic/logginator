@@ -8,6 +8,27 @@
     %link{ :href => '/results.css', :rel => 'stylesheet', :type => 'text/css' }
 
   %body
+    #search
+      %form{ :action => '/', :method => 'get' }
+        %fieldset.params
+          %legend Params
+          .field
+            %input{ :type => 'text', :name => 'q[param][][key]' }
+            \ =~
+            %input{ :type => 'text', :name => 'q[param][][value]' }
+        .field
+          %label{ :for => 'action' } Action:
+          %input{ :type => 'text', :name => 'q[action]', :id => 'action' }
+          %label{ :for => 'controller' } Controller:
+          %input{ :type => 'text', :name => 'q[controller]', :id => 'controller' }
+        .field
+          %label{ :for => 'from' } From:
+          %input{ :type => 'text', :name => 'q[from]', :id => 'from' }
+          %label{ :for => 'to' } To:
+          %input{ :type => 'text', :name => 'q[to]', :id => 'to' }
+        .submit
+          %input{ :type => 'submit', :value => 'Update Results' }
+
     #summaries
       .pagination
         %a{ :href => "/page/#{[1, @page - 1].max}" } previous
