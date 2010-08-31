@@ -1,5 +1,5 @@
 class LogEntry
-  PER_PAGE = 20
+  PER_PAGE = 25
   COLLECTION = begin
     if ENV['MONGOHQ_URL']
       uri  = URI.parse(ENV['MONGOHQ_URL'])
