@@ -38,6 +38,9 @@
         %h2 params
         = param_table @log_entry['params']
 
-      .messages
-        %h2 messages
-        -# = param_table @log_entry['messages']
+      - @log_entry['messages'].each do |key, messages|
+        .messages
+          %h2= key
+          %ul
+            - messages.each do |message|
+              %li= message
