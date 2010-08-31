@@ -18,9 +18,15 @@
             %td.time
               %a{ :href => "/page/#{@page}/entry/#{entry['_id']}" }
                 = entry['request_time'].strftime '%m-%d %H:%M:%S'
-            %td.controller= entry['controller']
-            %td.separator #
-            %td.action= entry['action']
+            %td.controller
+              %a{ :href => "/page/#{@page}/entry/#{entry['_id']}" }
+                = entry['controller']
+            %td.separator 
+              %a{ :href => "/page/#{@page}/entry/#{entry['_id']}" }
+                \ #
+            %td.action
+              %a{ :href => "/page/#{@page}/entry/#{entry['_id']}" }
+                = entry['action']
 
       .pagination
         %a{ :href => "/page/#{@page + 1}" } next
