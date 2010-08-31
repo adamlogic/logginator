@@ -30,6 +30,14 @@
         %span.time= @log_entry['request_time'].strftime '%Y-%m-%d %H:%M:%S'
         %span.action= "#{@log_entry['controller']}##{@log_entry['action']}"
 
+      .request
+        %span.endpoints= "#{@log_entry['ip']} -> #{@log_entry['url']}"
+        %span.duration= "(#{@log_entry['runtime']}ms)"
+
       .params
         %h2 params
         = param_table @log_entry['params']
+
+      .messages
+        %h2 messages
+        -# = param_table @log_entry['messages']
