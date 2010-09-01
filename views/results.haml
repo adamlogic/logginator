@@ -18,14 +18,14 @@
             %input{ :type => 'text', :name => 'q[param][][value]' }
         .field
           %label{ :for => 'action' } Action:
-          %input{ :type => 'text', :name => 'q[action]', :id => 'action' }
+          %input{ :type => 'text', :name => 'q[action]', :id => 'action', :value => params[:q][:action] }
           %label{ :for => 'controller' } Controller:
-          %input{ :type => 'text', :name => 'q[controller]', :id => 'controller' }
+          %input{ :type => 'text', :name => 'q[controller]', :id => 'controller', :value => params[:q][:controller] }
         .field
           %label{ :for => 'from' } From:
-          %input{ :type => 'text', :name => 'q[from]', :id => 'from' }
+          %input{ :type => 'text', :name => 'q[from]', :id => 'from', :value => @from.strftime('%Y/%m/%d %H:%M') }
           %label{ :for => 'to' } To:
-          %input{ :type => 'text', :name => 'q[to]', :id => 'to' }
+          %input{ :type => 'text', :name => 'q[to]', :id => 'to', :value => @to.strftime('%Y/%m/%d %H:%M') }
         .submit
           %input{ :type => 'submit', :value => 'Update Results' }
 
@@ -35,10 +35,10 @@
 
       %table{ :cellspacing => 0 }
         - @log_entries.each do |entry|
-          %tr{ :class => "#{'selected' if entry['_id'] == @log_entry['_id']}" }
+          %tr{ :class => "#{'selected' if entry['_id'] == (@log_entry && @log_entry['_id'])}" }
             %td.time
               %a{ :href => "/page/#{@page}/entry/#{entry['_id']}" }
-                = entry['request_time'].strftime '%m-%d %H:%M:%S'
+                = entry['request_time'].strftime '%m/%d %H:%M:%S'
             %td.controller
               %a{ :href => "/page/#{@page}/entry/#{entry['_id']}" }
                 = entry['controller']
@@ -53,21 +53,24 @@
         %a{ :href => "/page/#{@page + 1}" } next
 
     #detail
-      %h1 
-        %span.time= @log_entry['request_time'].strftime '%Y-%m-%d %H:%M:%S'
-        %span.action= "#{@log_entry['controller']}##{@log_entry['action']}"
+      - if @log_entry
+        %h1 
+          %span.time= @log_entry['request_time'].strftime '%b %e, %Y %H:%M:%S'
+          %span.action= "#{@log_entry['controller']}##{@log_entry['action']}"
 
-      .request
-        %span.endpoints= "#{@log_entry['ip']} -> #{@log_entry['url']}"
-        %span.duration= "(#{@log_entry['runtime']}ms)"
+        .request
+          %span.endpoints= "#{@log_entry['ip']} -> #{@log_entry['url']}"
+          %span.duration= "(#{@log_entry['runtime']}ms)"
 
-      .params
-        %h2 params
-        = param_table @log_entry['params']
+        .params
+          %h2 params
+          = param_table @log_entry['params']
 
-      - @log_entry['messages'].each do |key, messages|
-        .messages
-          %h2= key
-          %ul
-            - messages.each do |message|
-              %li= message
+        - @log_entry['messages'].each do |key, messages|
+          .messages
+            %h2= key
+            %ul
+              - messages.each do |message|
+                %li= message
+      - else
+        %h1 No record found
