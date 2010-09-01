@@ -12,7 +12,7 @@ get '/' do
   @from = params['q']['from'] = Chronic.parse(params['q']['from']) || Chronic.parse('1/1/10')
   @to   = params['q']['to']   = Chronic.parse(params['q']['to']) || Time.now
   @log_entries = LogEntry.page(@page, params['q'])
-  @log_entry   = LogEntry.first_on_page(@page, params['q'])
+  @log_entry   = LogEntry.find_one(@log_entries.first)
   haml :results
 end
 
@@ -22,7 +22,7 @@ get '/page/:page' do |page|
   @from = params['q']['from'] = Chronic.parse(params['q']['from']) || Chronic.parse('1/1/10')
   @to   = params['q']['to']   = Chronic.parse(params['q']['to']) || Time.now
   @log_entries = LogEntry.page(@page, params['q'])
-  @log_entry   = LogEntry.first_on_page(@page, params['q'])
+  @log_entry   = LogEntry.find_one(@log_entries.first)
   haml :results
 end
 
@@ -32,6 +32,6 @@ get '/page/:page/entry/:id' do |page, id|
   @from = params['q']['from'] = Chronic.parse(params['q']['from']) || Chronic.parse('1/1/10')
   @to   = params['q']['to']   = Chronic.parse(params['q']['to']) || Time.now
   @log_entries = LogEntry.page(@page, params['q'])
-  @log_entry   = LogEntry.find_one(BSON.ObjectId(id))
+  @log_entry   = LogEntry.find_one(id)
   haml :results
 end
