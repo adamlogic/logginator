@@ -1,3 +1,5 @@
+ENV['RACK_ENV'] = 'test'
+
 require File.join(File.dirname(__FILE__), '..', '..', 'logginator.rb')
 
 require 'capybara'
@@ -11,4 +13,7 @@ World do
   include Spec::Expectations
   include Spec::Matchers
 end
+
+# load test data
+`mongorestore -d logginator_test -c log_entries spec/data/log_entries.bson`
 

@@ -1,16 +1,8 @@
 class LogEntry
   PER_PAGE = 25
-  COLLECTION = begin
-    if ENV['MONGOHQ_URL']
-      uri  = URI.parse(ENV['MONGOHQ_URL'])
-      conn = Mongo::Connection.from_uri(ENV['MONGOHQ_URL'])
-      db   = conn.db(uri.path.gsub(/^\//, ''))
-      db.collection('production_log')
-    else
-      conn = Mongo::Connection.from_uri('mongodb://localhost')
-      db   = conn.db('logginator_dev')
-      db.collection('log_entries')
-    end
+
+  def self.collection
+    @collection ||= DATABASE.collection( ENV['COLLECTION_NAME'] || 'log_entries' )
   end
   
   def self.page(page, params = {})
@@ -18,7 +10,7 @@ class LogEntry
     options = page_opts(page)
     options[:fields] = %w{ request_time controller action }
 
-    COLLECTION.find(clean_params(params), options).to_a
+    collection.find(clean_params(params), options).to_a
   end
 
   def self.find_one(id_or_doc, params = {})
@@ -29,7 +21,7 @@ class LogEntry
       else id_or_doc
     end
 
-    COLLECTION.find_one(object_id, clean_params(params))
+    collection.find_one(object_id, clean_params(params))
   end
 
   private
