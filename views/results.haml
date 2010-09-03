@@ -10,11 +10,11 @@
   %body
     #search
       %form{ :action => '/', :method => 'get' }
+        - params[:q] ||= {}
         %fieldset.params
           %legend Params
           .field
             %input{ :type => 'text', :name => 'q[param][][key]' }
-            \ =~
             %input{ :type => 'text', :name => 'q[param][][value]' }
         .field
           %label{ :for => 'action' } Action:
@@ -23,9 +23,9 @@
           %input{ :type => 'text', :name => 'q[controller]', :id => 'controller', :value => params[:q][:controller] }
         .field
           %label{ :for => 'from' } From:
-          %input{ :type => 'text', :name => 'q[from]', :id => 'from', :value => @from.strftime('%Y/%m/%d %H:%M') }
+          %input{ :type => 'text', :name => 'q[from]', :id => 'from', :value => params[:q][:from] }
           %label{ :for => 'to' } To:
-          %input{ :type => 'text', :name => 'q[to]', :id => 'to', :value => @to.strftime('%Y/%m/%d %H:%M') }
+          %input{ :type => 'text', :name => 'q[to]', :id => 'to', :value => params[:q][:to] }
         .submit
           %input{ :type => 'submit', :value => 'Update Results' }
 

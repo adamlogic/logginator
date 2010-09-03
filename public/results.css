@@ -2,11 +2,13 @@ body { padding: 1em; font-family: helvetica, arial; color: #222; font-size: 67%;
 a { text-decoration: none; color: #222; }
 
 #search { margin-bottom: 2em; border-bottom: 1px solid #ddd; padding: 1em; background: #eee; }
-#search form { width: 66em; }
+#search form { width: 64em; }
 #search .field { margin-bottom: .5em; }
 #search .field label { display: inline-block; width: 5em; }
 #search .field input { margin-right: 1.7em; width: 10em; }
-#search fieldset.params { float: right; }
+#search fieldset.params { float: right; padding: .3em .8em; }
+#search fieldset.params input { margin: .4em; }
+#search .submit { padding-top: .5em; } 
 
 #summaries { float: left; margin-bottom: 2em; border: 3px solid #eee; padding: 2px 10px; width: 21em; overflow: hidden; }
 
