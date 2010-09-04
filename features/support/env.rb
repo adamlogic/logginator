@@ -8,6 +8,8 @@ require 'spec'
 
 Capybara.app = Sinatra::Application
 
+Capybara.default_selector = :css
+
 World do
   include Capybara
   include Spec::Expectations
