@@ -36,12 +36,12 @@ class LogEntry
 
       if from = Chronic.parse(params.delete('from'))
         params['request_time'] ||= {}
-        params['request_time'][:$gt] = from.utc
+        params['request_time'][:$gt] = from + from.utc_offset
       end
 
       if to = Chronic.parse(params.delete('to'))
         params['request_time'] ||= {}
-        params['request_time'][:$lt] = to.utc
+        params['request_time'][:$lt] = to + to.utc_offset
       end
 
       params.delete('param')
