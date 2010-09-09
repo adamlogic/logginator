@@ -26,4 +26,9 @@ helpers do
     html << "</table>"
   end
 
+  def link_to_entry(entry, text)
+    href = "/page/#{@page}/entry/#{entry['_id']}?#{request.query_string}"
+    "<a href=\"#{href}\">#{text}</a>"
+  end
+
 end

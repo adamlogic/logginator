@@ -37,17 +37,13 @@
         - @log_entries.each do |entry|
           %tr{ :class => "#{'selected' if entry['_id'] == (@log_entry && @log_entry['_id'])}" }
             %td.time
-              %a{ :href => "/page/#{@page}/entry/#{entry['_id']}" }
-                = entry['request_time'].strftime '%m/%d %H:%M:%S'
+              = link_to_entry entry, entry['request_time'].strftime('%m/%d %H:%M:%S')
             %td.controller
-              %a{ :href => "/page/#{@page}/entry/#{entry['_id']}" }
-                = entry['controller']
+              = link_to_entry entry, entry['controller']
             %td.separator 
-              %a{ :href => "/page/#{@page}/entry/#{entry['_id']}" }
-                \ #
+              = link_to_entry entry, '#'
             %td.action
-              %a{ :href => "/page/#{@page}/entry/#{entry['_id']}" }
-                = entry['action']
+              = link_to_entry entry, entry['action']
 
       .pagination
         %a{ :href => "/page/#{@page + 1}" } next
