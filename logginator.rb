@@ -2,7 +2,6 @@ require 'sinatra'
 require 'haml'
 require 'uri'
 require 'mongo'
-require 'chronic'
 require 'lib/log_entry'
 require 'lib/helpers'
 

@@ -34,12 +34,14 @@ class LogEntry
     def self.clean_params(params)
       params = params.reject { |k,v| v.nil? || (v.respond_to?(:empty?) && v.empty?) }
 
-      if from = Chronic.parse(params.delete('from'))
+      if (from = params.delete('from')) && !from.empty?
+        from = Time.parse(from)
         params['request_time'] ||= {}
         params['request_time'][:$gt] = from + from.utc_offset
       end
 
-      if to = Chronic.parse(params.delete('to'))
+      if (to = params.delete('to')) && !to.empty?
+        to = Time.parse(to)
         params['request_time'] ||= {}
         params['request_time'][:$lt] = to + to.utc_offset
       end
