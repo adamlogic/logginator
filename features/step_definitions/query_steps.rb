@@ -32,7 +32,7 @@ Then /^all entries in the summary list should be from "([^"]*)" to "([^"]*)"$/ d
   to   = Time.parse(to)
 
   page.all('#summaries tr').each do |row| 
-    time = Time.parse(row.find('td.time').text)
+    time = Time.parse(row.find(:xpath, XPath.from_css('td.time').to_s).text)
     (from..to).should be_include(time)
   end
 end
