@@ -31,4 +31,9 @@ helpers do
     "<a href=\"#{href}\">#{text}</a>"
   end
 
+  def link_to_page(page, text)
+    href = "/page/#{page}?#{request.query_string}"
+    "<a href=\"#{href}\">#{text}</a>"
+  end
+
 end

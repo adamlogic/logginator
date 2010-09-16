@@ -31,7 +31,7 @@
 
     #summaries
       .pagination
-        %a{ :href => "/page/#{[1, @page - 1].max}" } previous
+        = link_to_page [1, @page - 1].max, 'previous'
 
       %table{ :cellspacing => 0 }
         - @log_entries.each do |entry|
@@ -46,7 +46,7 @@
               = link_to_entry entry, entry['action']
 
       .pagination
-        %a{ :href => "/page/#{@page + 1}" } next
+        = link_to_page @page + 1, 'next'
 
     #detail
       - if @log_entry
