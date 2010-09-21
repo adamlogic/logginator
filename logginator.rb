@@ -2,23 +2,24 @@ require 'sinatra'
 require 'haml'
 require 'uri'
 require 'mongo'
+require 'logger'
 require 'lib/log_entry'
 require 'lib/helpers'
 
-configure :development do
-  conn = Mongo::Connection.from_uri('mongodb://localhost')
-  DATABASE = conn.db('logginator_dev')
-end
+configure do
+  environment     = ENV['RACK_ENV'] || 'development'
+  log_file        = "log/#{environment}.log"
+  COLLECTION_NAME = "#{environment}_log"
 
-configure :test do
-  conn = Mongo::Connection.from_uri('mongodb://localhost')
-  DATABASE = conn.db('logginator_test')
-end
-
-configure :production do
-  uri  = URI.parse(ENV['MONGOHQ_URL'])
-  conn = Mongo::Connection.from_uri(ENV['MONGOHQ_URL'])
-  DATABASE = conn.db(uri.path.gsub(/^\//, ''))
+  if mongo_logger_url = (ENV['MONGOHQ_URL'] || ENV['MONGO_LOGGER_URL'])
+    uri  = URI.parse(mongo_logger_url)
+    conn = Mongo::Connection.from_uri(mongo_logger_url, :logger => Logger.new(log_file))
+    DATABASE = conn.db(uri.path.gsub(/^\//, ''))
+    DATABASE.authenticate(uri.user, uri.password)
+  else
+    conn = Mongo::Connection.from_uri('mongodb://localhost', :logger => Logger.new(log_file))
+    DATABASE = conn.db("logginator_#{environment}")
+  end
 end
 
 get '/' do

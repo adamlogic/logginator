@@ -2,9 +2,9 @@ class LogEntry
   PER_PAGE = 25
 
   def self.collection
-    @collection ||= DATABASE.collection( ENV['COLLECTION_NAME'] || 'log_entries' )
+    @collection ||= DATABASE.collection(COLLECTION_NAME)
   end
-  
+
   def self.page(page, params = {})
     params ||= {}
     options = page_opts(page)
