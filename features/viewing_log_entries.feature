@@ -13,9 +13,9 @@ Scenario: Viewing a specific entry
 
 Scenario: Pagination
   Given I am on the initial page
-  When  I click the "next" page link
+  When  I click the "older" page link
   Then  I should see entries 26-50
-  When  I click the "previous" page link
+  When  I click the "newer" page link
   Then  I should see entries 1-25
 
 Scenario: Viewing a specific entry while not on the first pgae

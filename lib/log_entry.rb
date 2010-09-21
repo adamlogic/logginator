@@ -9,6 +9,7 @@ class LogEntry
     params ||= {}
     options = page_opts(page)
     options[:fields] = %w{ request_time controller action }
+    options[:sort] = ['$natural', :desc]
 
     collection.find(clean_params(params), options).to_a
   end
