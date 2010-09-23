@@ -9,7 +9,7 @@ require 'lib/helpers'
 configure do
   environment     = ENV['RACK_ENV'] || 'development'
   log_file        = "log/#{environment}.log"
-  COLLECTION_NAME = "#{environment}_log"
+  COLLECTION_NAME = ENV['LOGGINATOR_COLLECTION'] || "#{environment}_log"
 
   if mongo_logger_url = (ENV['MONGOHQ_URL'] || ENV['MONGO_LOGGER_URL'])
     uri  = URI.parse(mongo_logger_url)
