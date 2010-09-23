@@ -47,7 +47,10 @@ class LogEntry
         params['request_time'][:$lt] = to + to.utc_offset
       end
 
-      params.delete('param')
+      (params.delete('param') || []).each do |query_param|
+        params["params.#{query_param['key']}"] = query_param['value'] unless query_param['key'].empty?
+      end
+
       params
     end
 
