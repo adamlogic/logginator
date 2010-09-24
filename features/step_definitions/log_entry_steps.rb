@@ -29,11 +29,11 @@ Then /^I should see (\d+) entries in the summary list$/ do |log_count|
   page.should have_css('#summaries tr', :count => log_count.to_i)
 end
 
-Then /^I should see details for the oldest entry$/ do
-  oldest_entry      = LogEntry.collection.find_one({}, :sort => :request_time)
-  oldest_entry_time = detail_time_format(oldest_entry['request_time'])
+Then /^I should see details for the newest entry$/ do
+  newest_entry      = LogEntry.collection.find_one({}, :sort => [:$natural, :desc])
+  newest_entry_time = detail_time_format(newest_entry['request_time'])
 
-  page.should have_css('#detail .time', :text => oldest_entry_time)
+  page.should have_css('#detail .time', :text => newest_entry_time)
 end
 
 Then /^I should see details for the selected entry$/ do
@@ -46,12 +46,12 @@ Then /^the selected entry should be highlighted in the summary list$/ do
   page.should have_css("#summaries tr.selected:nth-child(#{@position + 1})")
 end
 
-Then /^I should see entries (\d+)\-(\d+)$/ do |range_begin, range_end|
-  first_entry = LogEntry.collection.find_one({}, :skip => range_begin.to_i - 1)
-  last_entry  = LogEntry.collection.find_one({}, :skip => range_end.to_i - 1)
-  first_time  = summary_time_format(first_entry['request_time'])
-  last_time   = summary_time_format(last_entry['request_time'])
+Then /^I should see entries 1-25$/ do
+  page.should have_css("#summaries tr:first-child", :text => /09\/23 19:28:09/)
+  page.should have_css("#summaries tr:last-child",  :text => /09\/23 18:52:11/)
+end
 
-  page.should have_css("#summaries tr:first-child", :text => /#{first_time}/)
-  page.should have_css("#summaries tr:last-child",  :text => /#{last_time}/)
+Then /^I should see entries 26-50$/ do
+  page.should have_css("#summaries tr:first-child", :text => /09\/23 18:52:09/)
+  page.should have_css("#summaries tr:last-child",  :text => /09\/22 20:11:21/)
 end

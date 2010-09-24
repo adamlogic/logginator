@@ -3,7 +3,7 @@ Feature: Viewing log entries
 Scenario: Initial page
   Given I am on the initial page
   Then  I should see 25 entries in the summary list
-  And   I should see details for the oldest entry
+  And   I should see details for the newest entry
 
 Scenario: Viewing a specific entry
   Given I am on the initial page

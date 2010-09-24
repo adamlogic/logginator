@@ -12,6 +12,9 @@ When /^I filter results for the "([^"]*)" controller and "([^"]*)" action$/ do |
 end
 
 When /^I filter for results from "([^"]*)" to "([^"]*)"$/ do |from, to|
+  @from = Time.parse(from)
+  @to   = Time.parse(to)
+
   fill_in 'From', :with => from
   fill_in 'To',   :with => to
   click   'Update Results'
@@ -27,13 +30,10 @@ Then /^all entries in the summary list should be for the "([^"]*)" action$/ do |
   page.all('#summaries tr').each { |row| row.should have_content(action) }
 end
 
-Then /^all entries in the summary list should be from "([^"]*)" to "([^"]*)"$/ do |from, to|
-  from = Time.parse(from)
-  to   = Time.parse(to)
-
+Then /^all entries in the summary list should be between those times$/ do
   page.all('#summaries tr').each do |row| 
     time = Time.parse(row.find(:xpath, XPath.from_css('td.time').to_s).text)
-    (from..to).should be_include(time)
+    (@from..@to).should be_include(time)
   end
 end
 
@@ -45,11 +45,9 @@ Then /^the selected entry should be for the "([^"]*)" action$/ do |action|
   page.should have_css('#detail .action', :text => /#{action}/)
 end
 
-Then /^the selected entry should be from "([^"]*)" to "([^"]*)"$/ do |from, to|
-  from = Time.parse(from)
-  to   = Time.parse(to)
+Then /^the selected entry should be between those times$/ do
   time = Time.parse(page.find('#detail .time').text)
 
-  (from..to).should be_include(time)
+  (@from..@to).should be_include(time)
 end
 

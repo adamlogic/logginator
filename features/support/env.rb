@@ -17,5 +17,5 @@ World do
 end
 
 # load test data
-`mongorestore -d logginator_test -c log_entries spec/data/log_entries.bson`
+`mongorestore -d logginator_test -c test_log spec/data/log_entries.bson`
 
