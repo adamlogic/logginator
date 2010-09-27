@@ -2,6 +2,7 @@ require 'sinatra'
 require 'haml'
 require 'uri'
 require 'mongo'
+require 'json'
 require 'logger'
 require 'lib/log_entry'
 require 'lib/helpers'
@@ -25,20 +26,21 @@ end
 get '/' do
   @page = 1
   @log_entries = LogEntry.page(@page, params['q'])
-  @log_entry   = LogEntry.find_one(@log_entries.first)
+
   haml :results
 end
 
-get '/page/:page' do |page|
-  @page = page.to_i
+get '/search' do
+  @page = params[:page] || 1
   @log_entries = LogEntry.page(@page, params['q'])
-  @log_entry   = LogEntry.find_one(@log_entries.first)
-  haml :results
+
+  content_type :json
+  { :html => haml(:results) }.to_json
 end
 
-get '/page/:page/entry/:id' do |page, id|
-  @page = page.to_i
-  @log_entries = LogEntry.page(@page, params['q'])
+get '/entry/:id' do |id|
   @log_entry   = LogEntry.find_one(id)
-  haml :results
+
+  content_type :json
+  { :html => haml(:results) }.to_json
 end
