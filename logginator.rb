@@ -34,13 +34,13 @@ get '/search' do
   @page = params[:page] || 1
   @log_entries = LogEntry.page(@page, params['q'])
 
-  content_type :json
-  { :html => haml(:results) }.to_json
+  content_type :js
+  "$('#summaries').html(#{ haml(:summaries).to_json });"
 end
 
 get '/entry/:id' do |id|
   @log_entry   = LogEntry.find_one(id)
 
-  content_type :json
-  { :html => haml(:results) }.to_json
+  content_type :js
+  "$('#detail').html(#{ haml(:detail).to_json });"
 end

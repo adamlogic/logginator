@@ -1,5 +1,5 @@
 class LogEntry
-  PER_PAGE = 25
+  PER_PAGE = 50
 
   def self.collection
     @collection ||= DATABASE.collection(COLLECTION_NAME)

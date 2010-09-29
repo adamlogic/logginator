@@ -1,0 +1,17 @@
+.pagination
+  = link_to_page [1, @page - 1].max, 'newer'
+
+%table{ :cellspacing => 0 }
+  - @log_entries.each do |entry|
+    %tr
+      %td.time
+        = link_to_entry entry, entry['request_time'].strftime('%m/%d %H:%M:%S')
+      %td.controller
+        = link_to_entry entry, entry['controller']
+      %td.separator 
+        = link_to_entry entry, '#'
+      %td.action
+        = link_to_entry entry, entry['action']
+
+.pagination
+  = link_to_page @page + 1, 'older'

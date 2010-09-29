@@ -1,0 +1,21 @@
+- if @log_entry
+  %h1 
+    %span.time= @log_entry['request_time'].strftime '%b %e, %Y %H:%M:%S'
+    %span.action= "#{@log_entry['controller']}##{@log_entry['action']}"
+
+  .request
+    %span.endpoints= "#{@log_entry['ip']} -> #{@log_entry['url']}"
+    %span.duration= "(#{@log_entry['runtime']}ms)"
+
+  .params
+    %h2 params
+    = param_table @log_entry['params']
+
+  - @log_entry['messages'].each do |key, messages|
+    .messages
+      %h2= key
+      %ul
+        - messages.each do |message|
+          %li= message
+- else
+  %h1 No record found

@@ -1,4 +1,3 @@
-
 !!!5
 
 %html{ :xmlns => "http://www.w3.org/1999/xhtml" }
@@ -11,65 +10,28 @@
     %script{ :src => '/logginator.js', :type => 'text/javascript' }
 
   %body
-    #search
-      %form{ :action => '/search', :method => 'get', 'data-remote' => true, 'data-type' => 'json' }
-        - params[:q] ||= {}
-        %fieldset.params
-          %legend Params
-          .field
-            %input{ :type => 'text', :name => 'q[param][][key]' }
-            %input{ :type => 'text', :name => 'q[param][][value]' }
+    %form{ :action => '/search', :method => 'get', :id => 'search', 'data-remote' => true }
+      %fieldset
         .field
-          %label{ :for => 'action' } Action:
-          %input{ :type => 'text', :name => 'q[action]', :id => 'action', :value => params[:q][:action] }
           %label{ :for => 'controller' } Controller:
-          %input{ :type => 'text', :name => 'q[controller]', :id => 'controller', :value => params[:q][:controller] }
+          %input{ :type => 'text', :name => 'q[controller]', :id => 'controller' }
+          %label{ :for => 'action' } Action:
+          %input{ :type => 'text', :name => 'q[action]', :id => 'action' }
         .field
           %label{ :for => 'from' } From:
-          %input{ :type => 'text', :name => 'q[from]', :id => 'from', :value => params[:q][:from] }
+          %input{ :type => 'text', :name => 'q[from]', :id => 'from' }
           %label{ :for => 'to' } To:
-          %input{ :type => 'text', :name => 'q[to]', :id => 'to', :value => params[:q][:to] }
-        .submit
-          %input{ :type => 'submit', :value => 'Update Results' }
+          %input{ :type => 'text', :name => 'q[to]', :id => 'to' }
+      %fieldset.params
+        %legend Params
+        .field
+          %input{ :type => 'text', :name => 'q[param][][key]' }
+          %input{ :type => 'text', :name => 'q[param][][value]' }
+      .submit
+        %input{ :type => 'submit', :value => 'Update Results' }
 
     #summaries
-      .pagination
-        = link_to_page [1, @page - 1].max, 'newer'
-
-      %table{ :cellspacing => 0 }
-        - @log_entries.each do |entry|
-          %tr{ :class => "#{'selected' if entry['_id'] == (@log_entry && @log_entry['_id'])}" }
-            %td.time
-              = link_to_entry entry, entry['request_time'].strftime('%m/%d %H:%M:%S')
-            %td.controller
-              = link_to_entry entry, entry['controller']
-            %td.separator 
-              = link_to_entry entry, '#'
-            %td.action
-              = link_to_entry entry, entry['action']
-
-      .pagination
-        = link_to_page @page + 1, 'older'
+      = haml :summaries
 
     #detail
-      - if @log_entry
-        %h1 
-          %span.time= @log_entry['request_time'].strftime '%b %e, %Y %H:%M:%S'
-          %span.action= "#{@log_entry['controller']}##{@log_entry['action']}"
-
-        .request
-          %span.endpoints= "#{@log_entry['ip']} -> #{@log_entry['url']}"
-          %span.duration= "(#{@log_entry['runtime']}ms)"
-
-        .params
-          %h2 params
-          = param_table @log_entry['params']
-
-        - @log_entry['messages'].each do |key, messages|
-          .messages
-            %h2= key
-            %ul
-              - messages.each do |message|
-                %li= message
-      - else
-        %h1 No record found
+      = haml :detail

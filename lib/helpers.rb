@@ -27,13 +27,13 @@ helpers do
   end
 
   def link_to_entry(entry, text)
-    href = "/page/#{@page}/entry/#{entry['_id']}?#{request.query_string}"
-    "<a href=\"#{href}\">#{text}</a>"
+    href = "/entry/#{entry['_id']}"
+    "<a href=\"#{href}\" data-remote=\"true\">#{text}</a>"
   end
 
   def link_to_page(page, text)
     href = "/page/#{page}?#{request.query_string}"
-    "<a href=\"#{href}\">#{text}</a>"
+    "<a href=\"#{href}\" data-remote=\"true\">#{text}</a>"
   end
 
 end
