@@ -13,7 +13,6 @@ Capybara.default_selector = :css
 Capybara.default_driver   = :akephalos
 
 World do
-  include Capybara
   include Spec::Expectations
   include Spec::Matchers
 end

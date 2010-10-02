@@ -23,11 +23,11 @@ end
 
 
 Then /^all entries in the summary list should be for the "([^"]*)" controller$/ do |controller|
-  page.all('#summaries tr').each { |row| row.should have_content(controller) }
+  page.all('#summaries tr').each { |row| row.text.should include(controller) }
 end
 
 Then /^all entries in the summary list should be for the "([^"]*)" action$/ do |action|
-  page.all('#summaries tr').each { |row| row.should have_content(action) }
+  page.all('#summaries tr').each { |row| row.text.should include(action) }
 end
 
 Then /^all entries in the summary list should be between those times$/ do
