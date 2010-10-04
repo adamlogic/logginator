@@ -4,7 +4,7 @@ require File.join(File.dirname(__FILE__), '..', '..', 'logginator.rb')
 
 require 'capybara'
 require 'capybara/cucumber'
-require 'spec'
+require 'rspec'
 require 'akephalos'
 
 Capybara.app = Sinatra::Application
@@ -13,8 +13,8 @@ Capybara.default_selector = :css
 Capybara.default_driver   = :akephalos
 
 World do
-  include Spec::Expectations
-  include Spec::Matchers
+  include RSpec::Expectations
+  include RSpec::Matchers
 end
 
 # load test data
