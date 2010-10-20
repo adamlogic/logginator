@@ -32,7 +32,7 @@ helpers do
   end
 
   def link_to_page(page, text)
-    href = "/page/#{page}?#{request.query_string}"
+    href = "/search?#{request.query_string}&page=#{page}"
     "<a href=\"#{href}\" data-remote=\"true\">#{text}</a>"
   end
 

@@ -24,23 +24,38 @@ configure do
 end
 
 get '/' do
-  @page = 1
-  @log_entries = LogEntry.page(@page, params['q'])
-
-  haml :results
+  search
 end
 
 get '/search' do
-  @page = params[:page] || 1
-  @log_entries = LogEntry.page(@page, params['q'])
-
-  content_type :js
-  "$('#summaries').html(#{ haml(:summaries).to_json });"
+  search
 end
 
-get '/entry/:id' do |id|
-  @log_entry   = LogEntry.find_one(id)
+get '/entry/:id' do
+  detail
+end
 
-  content_type :js
-  "$('#detail').html(#{ haml(:detail).to_json });"
+def search
+  @page = (params[:page] || 1).to_i
+  @log_entries = LogEntry.page(@page, params[:q])
+
+  if request.xhr?
+    content_type :js
+    "$('#summaries').html(#{ haml(:summaries).to_json });"
+  else
+    haml :results
+  end
+end
+
+def detail
+  @log_entry = LogEntry.find_one(params[:id])
+  @page      = (params[:page] || 1).to_i
+
+  if request.xhr?
+    content_type :js
+    "$('#detail').html(#{ haml(:detail).to_json });"
+  else
+    @log_entries = LogEntry.page(@page, params[:q])
+    haml :results
+  end
 end

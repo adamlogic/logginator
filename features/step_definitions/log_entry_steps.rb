@@ -4,7 +4,7 @@ end
 
 Given /^I am on page (\d+)$/ do |page|
   @page = page.to_i
-  visit "/page/#{@page}"
+  visit "/?page=#{@page}"
 end
 
 
@@ -46,12 +46,12 @@ Then /^the selected entry should be highlighted in the summary list$/ do
   page.should have_css("#summaries tr.selected:nth-child(#{@position + 1})")
 end
 
-Then /^I should see entries 1-25$/ do
+Then /^I should see entries 1-50$/ do
   page.should have_css("#summaries tr:first-child", :text => /09\/23 19:28:09/)
-  page.should have_css("#summaries tr:last-child",  :text => /09\/23 18:52:11/)
+  page.should have_css("#summaries tr:last-child",  :text => /09\/22 20:11:21/)
 end
 
-Then /^I should see entries 26-50$/ do
-  page.should have_css("#summaries tr:first-child", :text => /09\/23 18:52:09/)
-  page.should have_css("#summaries tr:last-child",  :text => /09\/22 20:11:21/)
+Then /^I should see entries 51-100$/ do
+  page.should have_css("#summaries tr:first-child", :text => /09\/22 20:11:17/)
+  page.should have_css("#summaries tr:last-child",  :text => /09\/22 13:31:06/)
 end
