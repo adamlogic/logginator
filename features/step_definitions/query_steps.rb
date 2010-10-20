@@ -37,18 +37,3 @@ Then /^all entries in the summary list should be between those times$/ do
     (@from..@to).should be_include(time)
   end
 end
-
-Then /^the selected entry should be for the "([^"]*)" controller$/ do |controller|
-  page.should have_css('#detail .action', :text => /#{controller}/)
-end
-
-Then /^the selected entry should be for the "([^"]*)" action$/ do |action|
-  page.should have_css('#detail .action', :text => /#{action}/)
-end
-
-Then /^the selected entry should be between those times$/ do
-  time = Time.parse(page.find('#detail .time').text)
-
-  (@from..@to).should be_include(time)
-end
-
