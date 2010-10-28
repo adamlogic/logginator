@@ -34,6 +34,6 @@ end
 Then /^all entries in the summary list should be between those times$/ do
   page.all('#summaries tr').each do |row|
     time = Time.parse(row.find(:xpath, Capybara::XPath.from_css('td.time').to_s).text)
-    (@from..@to).should be_include(time)
+    (@from..@to).should be_cover(time)
   end
 end

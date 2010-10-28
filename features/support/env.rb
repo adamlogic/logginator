@@ -1,15 +1,14 @@
 ENV['RACK_ENV'] = 'test'
 
+Bundler.require :default, :test
+
 require File.join(File.dirname(__FILE__), '..', '..', 'logginator.rb')
 
-require 'capybara'
 require 'capybara/cucumber'
-require 'rspec'
-require 'akephalos'
 
 Capybara.app                     = Sinatra::Application
 Capybara.default_selector        = :css
-Capybara.default_driver          = :akephalos
+Capybara.javascript_driver       = :akephalos
 Capybara.save_and_open_page_path = 'tmp'
 
 World do

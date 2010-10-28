@@ -1,3 +1,8 @@
+require 'uri'
+require 'logger'
+require './lib/log_entry'
+require './lib/helpers'
+
 set :root, File.dirname(__FILE__)
 
 configure do
