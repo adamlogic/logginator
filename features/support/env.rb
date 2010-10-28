@@ -7,10 +7,10 @@ require 'capybara/cucumber'
 require 'rspec'
 require 'akephalos'
 
-Capybara.app = Sinatra::Application
-
-Capybara.default_selector = :css
-Capybara.default_driver   = :akephalos
+Capybara.app                     = Sinatra::Application
+Capybara.default_selector        = :css
+Capybara.default_driver          = :akephalos
+Capybara.save_and_open_page_path = 'tmp'
 
 World do
   include RSpec::Expectations
