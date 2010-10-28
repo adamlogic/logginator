@@ -1,4 +1,5 @@
-capybara*
 .DS_Store
 tmp
 log
+.bundle
+.rvmrc

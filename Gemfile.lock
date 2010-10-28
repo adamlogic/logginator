@@ -1,0 +1,32 @@
+GIT
+  remote: http://github.com/sinatra/sinatra.git
+  revision: 1bee791e5bf51828546dcd491122c711a69abbd8
+  specs:
+    sinatra (1.1.0)
+      rack (~> 1.1)
+      tilt (~> 1.1)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    bson (1.1.1)
+    bson_ext (1.1.1)
+    haml (3.0.22)
+    json (1.4.6)
+    mongo (1.1.1)
+      bson (>= 1.1.1)
+    rack (1.2.1)
+    shotgun (0.8)
+      rack (>= 1.0)
+    tilt (1.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bson_ext
+  haml
+  json
+  mongo
+  shotgun
+  sinatra!

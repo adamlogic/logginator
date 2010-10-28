@@ -1,11 +1,4 @@
-require 'sinatra'
-require 'haml'
-require 'uri'
-require 'mongo'
-require 'json'
-require 'logger'
-require 'lib/log_entry'
-require 'lib/helpers'
+set :root, File.dirname(__FILE__)
 
 configure do
   environment     = ENV['RACK_ENV'] || 'development'
