@@ -6,7 +6,7 @@ gem 'mongo'
 gem 'bson_ext', :require => false
 gem 'json'
 
-group :development, :test do
+group :development, :test, :cucumber do
   gem 'ruby-debug19', :require => 'ruby-debug'
 end
 
@@ -14,10 +14,13 @@ group :development do
   gem 'shotgun'
 end
 
-group :test do
+group :test, :cucumber do
   gem 'rspec'
+end
+
+group :cucumber do
   gem 'cucumber'
   gem 'capybara'
-  gem 'rspec'
+  gem 'launchy'
   gem 'akephalos'
 end

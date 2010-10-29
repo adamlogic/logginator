@@ -1,6 +1,6 @@
 ENV['RACK_ENV'] = 'test'
 
-Bundler.require :default, :test
+Bundler.require :default, :cucumber
 
 require File.join(File.dirname(__FILE__), '..', '..', 'logginator.rb')
 
