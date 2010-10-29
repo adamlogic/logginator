@@ -4,6 +4,7 @@ require './lib/log_entry'
 require './lib/helpers'
 
 set :root, File.dirname(__FILE__)
+enable :sessions
 
 configure do
   environment     = ENV['RACK_ENV'] || 'development'
@@ -34,7 +35,8 @@ get '/entry/:id' do
 end
 
 def search
-  @page = (params[:page] || 1).to_i
+  save_params
+  @page = (session[:page] || 1).to_i
   @log_entries = LogEntry.page(@page, params[:q])
 
   if request.xhr?
@@ -46,8 +48,9 @@ def search
 end
 
 def detail
-  @log_entry = LogEntry.find_one(params[:id])
-  @page      = (params[:page] || 1).to_i
+  save_params
+  @log_entry = LogEntry.find_one(session[:id])
+  @page      = (session[:page] || 1).to_i
 
   if request.xhr?
     content_type :js
@@ -57,3 +60,10 @@ def detail
     haml :results
   end
 end
+
+def save_params
+  # session[:q]    = params[:q]    || session[:q]
+  session[:id]   = params[:id]   || session[:id]
+  session[:page] = params[:page] || session[:page]
+end
+

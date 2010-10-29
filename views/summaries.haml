@@ -3,7 +3,7 @@
 
 %table{ :cellspacing => 0 }
   - @log_entries.each do |entry|
-    %tr
+    %tr{ :class => summary_row_class(entry) }
       %td.time
         = link_to_entry entry, entry['request_time'].strftime('%m/%d %H:%M:%S')
       %td.controller

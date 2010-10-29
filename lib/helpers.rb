@@ -1,5 +1,5 @@
 helpers do
-  
+
   def param_table(params)
     params.delete 'controller'
     params.delete 'action'
@@ -32,8 +32,12 @@ helpers do
   end
 
   def link_to_page(page, text)
-    href = "/search?#{request.query_string}&page=#{page}"
+    href = "/search?page=#{page}"
     "<a href=\"#{href}\" data-remote=\"true\">#{text}</a>"
+  end
+
+  def summary_row_class(entry)
+    'selected' if @log_entry && @log_entry['_id'] == entry['_id']
   end
 
 end
