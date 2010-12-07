@@ -6,6 +6,12 @@ require './lib/helpers'
 set :root, File.dirname(__FILE__)
 enable :sessions
 
+use Rack::Auth::Basic do |u, p|
+  username = ENV['HTTP_BASIC_USERNAME'] || ENV['USER']
+  password = ENV['HTTP_BASIC_PASSWORD'] || ENV['USER']
+  u == username && p == password
+end
+
 configure do
   environment     = ENV['RACK_ENV'] || 'development'
   log_file        = "log/#{environment}.log"
